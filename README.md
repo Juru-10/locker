@@ -1,11 +1,11 @@
 # Password Locker App
 
-#### This is the App called Password Locker because                     , 8th,Feb,2019
+#### The App that helps the user to save all the credentials of different accounts , 8th,Feb,2019
 
 #### By **Assumpta Uwanyirijuru**
 
 ## Description
-
+The Password Locker App will help the user to save all her/his different accounts credentials and even to create new ones.
 
 ## Setup/Installation Requirements
 
