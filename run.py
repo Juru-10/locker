@@ -46,7 +46,72 @@ def copy_tusername(cls,tname):
     user_found = User.find_by_tname(tname)
     pyperclip.copy(user_found.tusername)
 
+def main():
+    print("Hello Welcome to the user list. What is your name?")
+            tname = input()
 
+            print(f"Hello {tname}. what would you like to do?")
+            print('\n')
+
+            while True:
+                    print("Use these short codes : cu - create a new user, du - display users, fu -find a user, ex -exit the user list ")
+
+                    short_code = input().lower()
+
+                    if short_code == 'c':
+                            print("New User")
+                            print("-"*10)
+
+                            print ("twitter name ....")
+                            tname = input()
+
+                            print("twitter username ...")
+                            tusername = input()
+
+                            print("Password ...")
+                            tpassword = input()
+
+
+                            save_users(create_user(tname,tusername,tpassword)) # create and save new user.
+                            print ('\n')
+                            print(f"New User {tname} created")
+                            print ('\n')
+
+                    elif short_code == 'du':
+
+                            if display_users():
+                                    print("Here is a list of all your users")
+                                    print('\n')
+
+                                    for user in display_users():
+                                            print(f"{user.tname} {user.tusername}")
+
+                                    print('\n')
+                            else:
+                                    print('\n')
+                                    print("You dont seem to have any account saved yet")
+                                    print('\n')
+
+                    elif short_code == 'fu':
+
+                            print("Enter the twitter name you want to search for")
+
+                            search_name = input()
+                            if check_existing_users(search_name):
+                                    search_user = find_user(search_name)
+                                    print(f"{search_user.tname} {search_user.tusername}")
+                                    print('-' * 20)
+
+                                    # print(f"Phone number.......{search_contact.phone_number}")
+                                    # print(f"Email address.......{search_contact.email}")
+                            else:
+                                    print("That user does not exist")
+
+                    elif short_code == "ex":
+                            print("Bye .......")
+                            break
+                    else:
+                            print("I really didn't get that. Please use the short codes")
 
 
 
