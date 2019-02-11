@@ -21,7 +21,7 @@ def del_user(user):
     '''
     user.delete_user()
 
-def find_user(fname):
+def find_user(tname):
     '''
     Function tha finds a contact by the twitter name and returns the user
     '''
@@ -48,70 +48,130 @@ def copy_tusername(cls,tname):
 
 def main():
     print("Hello Welcome to the user list. What is your name?")
+    tname = input()
+
+    print(f"Hello {tname}. what would you like to do?")
+    print('\n')
+
+    while True:
+        print("Use these short codes : cu - create a new user, du - display users, fu -find a user, ex -exit the user list, li -log into your account ")
+
+        short_code = input().lower()
+
+        if short_code == 'cu':
+            print("New User")
+            print("-"*10)
+
+            print ("twitter name ....")
             tname = input()
 
-            print(f"Hello {tname}. what would you like to do?")
+            print("twitter username ...")
+            tusername = input()
+
+            print("Password ...")
+            tpassword = input()
+
+            save_users(create_user(tname,tusername,tpassword))
+            print("\n")
+            print(f"New User {tname} created")
             print('\n')
 
-            while True:
-                    print("Use these short codes : cu - create a new user, du - display users, fu -find a user, ex -exit the user list ")
+        elif short_code == 'du':
 
+            if display_users():
+                print("Here is a list of all your users")
+                print('\n')
+
+                for user in display_users():
+                    print(f"{user.tname} {user.tusername}")
+
+                print('\n')
+            else:
+                print('\n')
+                print("You don't seem to have any account saved yet")
+                print('\n')
+
+        elif short_code == 'fu':
+
+            print("Enter the twitter name you want to search for")
+
+            search_name = input()
+            if check_existing_user(search_name):
+                search_user = find_user(search_name)
+                print(f"{search_user.tname} {search_user.tusername}")
+                print('-' * 20)
+            else:
+                print("That user does not exist")
+        elif short_code == 'li':
+            print("Enter your twitter username")
+            username = input()
+            if check_existing_user(username):
+                username = find_user(username)
+                print("Enter the password")
+                password = input()
+                if check_existing_user(password):
+                    username = find_user(password)
+                    print("Use these short codes : cc - create new credentials, dc - display credentials, fc -find credentials, ex -exit the credentials list")
                     short_code = input().lower()
 
-                    if short_code == 'c':
-                            print("New User")
-                            print("-"*10)
+                    if short_code == 'cc':
+                        print("New Credentials")
+                        print("-"*10)
 
-                            print ("twitter name ....")
-                            tname = input()
+                        print ("media name ....")
+                        media = input()
 
-                            print("twitter username ...")
-                            tusername = input()
+                        print("username ...")
+                        username = input()
 
-                            print("Password ...")
-                            tpassword = input()
+                        print("Password ...")
+                        password = input()
+
+                        save_credentials(create_credentials(media,username,password))
+                        print ('\n')
+                        print(f"New Credentials {media} created")
+                        print ('\n')
+
+                    elif short_code == 'dc':
+
+                        if display_credentials():
+                            print("Here is a list of all your credentials")
+                            print('\n')
+
+                            for credentials in display_credentials():
+                                print(f"{credentials.media} '\n' {credentials.username} {credentials.password}")
+
+                            print('\n')
+                        else:
+                            print('\n')
+                            print("You don't seem to have any credentials saved yet")
+                            print('\n')
+
+                    elif short_code == 'fc':
+
+                        print("Enter the credentilas' media name you want to search for")
+
+                        search_name = input()
+                        if check_existing_credentials(search_name):
+                            search_credentials = find_credentials(search_name)
+                            print(f"{search_credentials.media} '\n' {search_credentials.username} {search_credentials.password}")
+                            print('-' * 20)
+                        else:
+                            print("That media credentials do not exist")
+
+        elif short_code == "ex":
+            print("Bye .......")
+            break
+        else:
+            print("I really didn't get that. Please use the short codes")
+
+if __name__ == '__main__':
+    main()
 
 
-                            save_users(create_user(tname,tusername,tpassword)) # create and save new user.
-                            print ('\n')
-                            print(f"New User {tname} created")
-                            print ('\n')
 
-                    elif short_code == 'du':
 
-                            if display_users():
-                                    print("Here is a list of all your users")
-                                    print('\n')
 
-                                    for user in display_users():
-                                            print(f"{user.tname} {user.tusername}")
-
-                                    print('\n')
-                            else:
-                                    print('\n')
-                                    print("You dont seem to have any account saved yet")
-                                    print('\n')
-
-                    elif short_code == 'fu':
-
-                            print("Enter the twitter name you want to search for")
-
-                            search_name = input()
-                            if check_existing_users(search_name):
-                                    search_user = find_user(search_name)
-                                    print(f"{search_user.tname} {search_user.tusername}")
-                                    print('-' * 20)
-
-                                    # print(f"Phone number.......{search_contact.phone_number}")
-                                    # print(f"Email address.......{search_contact.email}")
-                            else:
-                                    print("That user does not exist")
-
-                    elif short_code == "ex":
-                            print("Bye .......")
-                            break
-                    else:
-                            print("I really didn't get that. Please use the short codes")
 
 
 
