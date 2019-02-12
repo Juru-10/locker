@@ -1,5 +1,6 @@
 import unittest
 import pyperclip
+import readfiles
 
 from locker import User
 from locker import Credentials
