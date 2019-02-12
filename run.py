@@ -113,7 +113,7 @@ def read_credentials():
 
             print("Password ...")
             password = input()
-            handle = open("text.txt", "w")
+            handle = open("cred.txt", "a")
             handle.write(media)
             handle.write(username)
             handle.write(password)
@@ -182,7 +182,7 @@ def main():
             print("Password ...")
             tpassword = input()
 
-            handle = open("text.txt", "a")
+            handle = open("user.txt", "a")
             handle.write(tname+'\n')
             handle.write(tusername)
             handle.write(tpassword)
@@ -200,7 +200,7 @@ def main():
                 print('\n')
 
                 for user in display_users():
-                    with open("text.txt","r") as handle:
+                    with open("user.txt","r") as handle:
                         data = handle.read()
                         print(data)
                     print(f"{user.tname} {user.tusername}")
@@ -233,7 +233,7 @@ def main():
                     password = find_user(password)
 
                     if read_credentials():
-                        handle = open("text.txt", "a")
+                        handle = open("cred.txt", "a")
                         handle.write(media)
                         handle.write(username)
                         handle.write(password)
