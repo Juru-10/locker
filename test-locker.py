@@ -97,6 +97,14 @@ class TestUser(unittest.TestCase):
         User.copy_tusername("Juru")
         self.assertEqual(self.new_user.tusername,pyperclip.paste())
 
+    class TestReadFiles(unittest.TestCase):
+    '''
+    Class to test the  functions on the  readfiles module
+
+    Args:
+        unittest.TestCase: Class from the unittest module to create unit tests
+    '''
+
 if __name__ == '__main__':
     unittest.main()
 
