@@ -48,9 +48,9 @@ def copy_tusername(cls,tname):
 
 def main():
     print("Hello Welcome to the user list. What is your name?")
-    tname = input()
+    name = input()
 
-    print(f"Hello {tname}. what would you like to do?")
+    print(f"Hello {name}. what would you like to do?")
     print('\n')
 
     while True:
@@ -70,6 +70,12 @@ def main():
 
             print("Password ...")
             tpassword = input()
+
+            handle = open("text.txt", "w")
+            handle.write(tname)
+            handle.write(tusername)
+            handle.write(tpassword)
+            handle.close()
 
             save_users(create_user(tname,tusername,tpassword))
             print("\n")
@@ -111,53 +117,16 @@ def main():
                 password = input()
                 if check_existing_user(password):
                     username = find_user(password)
-                    print("Use these short codes : cc - create new credentials, dc - display credentials, fc -find credentials, ex -exit the credentials list")
-                    short_code = input().lower()
 
-                    if short_code == 'cc':
-                        print("New Credentials")
-                        print("-"*10)
-
-                        print ("media name ....")
-                        media = input()
-
-                        print("username ...")
-                        username = input()
-
-                        print("Password ...")
-                        password = input()
-
-                        save_credentials(create_credentials(media,username,password))
-                        print ('\n')
-                        print(f"New Credentials {media} created")
-                        print ('\n')
-
-                    elif short_code == 'dc':
-
-                        if display_credentials():
-                            print("Here is a list of all your credentials")
-                            print('\n')
-
-                            for credentials in display_credentials():
-                                print(f"{credentials.media} '\n' {credentials.username} {credentials.password}")
-
-                            print('\n')
-                        else:
-                            print('\n')
-                            print("You don't seem to have any credentials saved yet")
-                            print('\n')
-
-                    elif short_code == 'fc':
-
-                        print("Enter the credentilas' media name you want to search for")
-
-                        search_name = input()
-                        if check_existing_credentials(search_name):
-                            search_credentials = find_credentials(search_name)
-                            print(f"{search_credentials.media} '\n' {search_credentials.username} {search_credentials.password}")
-                            print('-' * 20)
-                        else:
-                            print("That media credentials do not exist")
+                    with open("text.txt","r+") as handle:
+                        data = handle.read()
+                        print(data)
+                    if read_credentials():
+                        handle = open("text.txt", "w")
+                        handle.write(media)
+                        handle.write(username)
+                        handle.write(password)
+                        handle.close()
 
         elif short_code == "ex":
             print("Bye .......")
@@ -171,6 +140,63 @@ if __name__ == '__main__':
 
 
 
+
+
+
+
+def read_credentials():
+    print("Use these short codes : cc - create new credentials, dc - display credentials, fc -find credentials, ex -exit the credentials list")
+    short_code = input().lower()
+
+    if short_code == 'cc':
+        print("New Credentials")
+        print("-"*10)
+
+        print ("media name ....")
+        media = input()
+
+        print("username ...")
+        username = input()
+
+        print("Password ...")
+        password = input()
+        # handle = open("text.txt", "w")
+        # handle.write(media)
+        # handle.write(username)
+        # handle.write(password)
+        # handle.close()
+
+        save_credentials(create_credentials(media,username,password))
+        print ('\n')
+        print(f"New Credentials {media} created")
+        print ('\n')
+
+    elif short_code == 'dc':
+
+        if display_credentials():
+            print("Here is a list of all your credentials")
+            print('\n')
+
+            for credentials in display_credentials():
+                print(f"{credentials.media} '\n' {credentials.username} {credentials.password}")
+
+            print('\n')
+        else:
+            print('\n')
+            print("You don't seem to have any credentials saved yet")
+            print('\n')
+
+    elif short_code == 'fc':
+
+        print("Enter the credentilas' media name you want to search for")
+
+        search_name = input()
+        if check_existing_credentials(search_name):
+            search_credentials = find_credentials(search_name)
+            print(f"{search_credentials.media} '\n' {search_credentials.username} {search_credentials.password}")
+            print('-' * 20)
+        else:
+            print("That media credentials do not exist")
 
 
 
