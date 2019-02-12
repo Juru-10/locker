@@ -36,12 +36,12 @@ It is still in Development and that will be soon resolved.
 ### Input Example
 
 **When it receives:**
-1.
+1. the user's twitter credentials,
 
 ### Output Example
 
 **It should return:**
-1.
+1. the list of all saved credentials.
 
 ## Technologies Used
 It is made by:
