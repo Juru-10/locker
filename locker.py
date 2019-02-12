@@ -27,7 +27,7 @@ class User:
         '''
         User.user_list.append(self)
 
-    def delete_user(self):
+    def del_user(self):
         '''
         delete_user method deletes a saved user from the user_list
         '''
@@ -100,7 +100,7 @@ class Credentials:
         '''
         Credentials.credentials_list.append(self)
 
-    def delete_credentials(self):
+    def del_credentials(self):
         '''
         delete_credentials method deletes a saved credential from the credentials_list
         '''

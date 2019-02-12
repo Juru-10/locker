@@ -19,7 +19,7 @@ def del_user(user):
     '''
     Function to delete a user
     '''
-    user.delete_user()
+    user.del_user()
 
 def find_user(tname):
     '''
@@ -65,7 +65,7 @@ def del_credentials(credentials):
     '''
     Function to delete a user
     '''
-    credentials.delete_credentials()
+    credentials.del_credentials()
 
 def find_credentials(media):
     '''
@@ -98,7 +98,7 @@ def read_credentials():
     Functions that reads credentials to the user
     '''
     while True:
-        print("Use these short codes : cc - create new credentials, dc - display credentials, fc -find credentials, ex -exit the credentials list")
+        print("Use these short codes : cc - create new credentials, dc - display credentials, fc -find credentials, ex -exit the credentials list, rc -Delete credentials")
         short_code = input().lower()
 
         if short_code == 'cc':
@@ -136,7 +136,7 @@ def read_credentials():
                     print('\n')
             else:
                 print('\n')
-                print("You don't seem to have any credentials saved yet")
+                print("You don't seem to have such credentials saved yet")
                 print('\n')
 
         elif short_code == 'fc':
@@ -148,6 +148,17 @@ def read_credentials():
                 search_credentials = find_credentials(search_name)
                 print(f"{search_credentials.media} '\n' {search_credentials.username} {search_credentials.password}")
                 print('-' * 20)
+            else:
+                print("That media credentials do not exist")
+
+        elif short_code == 'rc':
+            print("Enter the name of the user you want to delete")
+            media = input()
+            if check_existing_credentials(media):
+                media = find_credentials(media)
+                if del_credentials(media):
+                    print(f"The credentials {media}are deleted")
+
             else:
                 print("That media credentials do not exist")
 
@@ -165,7 +176,7 @@ def main():
     print('\n')
 
     while True:
-        print("Use these short codes : cu - create a new user, du - display users, fu -find a user, ex -exit the user list, li -log into your account ")
+        print("Use these short codes : cu - create a new user, du - display users, fu -find a user, ex -exit the user list, li -log into your account, ru -Delete a user")
 
         short_code = input().lower()
 
@@ -205,7 +216,7 @@ def main():
                 print('\n')
             else:
                 print('\n')
-                print("You don't seem to have any account saved yet")
+                print("You don't seem to have that account saved yet")
                 print('\n')
 
         elif short_code == 'fu':
@@ -240,6 +251,20 @@ def main():
         elif short_code == "ex":
             print("Bye .......")
             break
+
+        elif short_code == 'ru':
+            print("Enter the name of the user you want to delete")
+            user = input()
+            if check_existing_user(user):
+                user = find_user(user)
+                print("Enter the password")
+                password = input()
+                if check_existing_user(password):
+                    password = find_user(password)
+                    if del_user(user):
+                        print("The user is deleted")
+
+
         else:
             print("I really didn't get that. Please use the short codes")
 
