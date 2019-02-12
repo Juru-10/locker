@@ -107,6 +107,21 @@ class Credentials:
         Credentials.credentials_list.remove(self)
 
     @classmethod
+    def find_by_media(cls,media):
+        '''
+        Method that takes in media name and returns credentials that matches that media.
+
+        Args:
+            media: media name to search for
+        Returns :
+            credentials that matches the media name.
+        '''
+
+        for credentials in cls.credentials_list:
+            if credentials.media == media:
+                return credentials
+
+    @classmethod
     def credentials_exist(cls,media):
         '''
         Method that checks if a credential exists from the credentials list.
