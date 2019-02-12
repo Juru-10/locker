@@ -48,19 +48,6 @@ def copy_tusername(cls,tname):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 def create_credentials(media,username,password):
     '''
     Function to create a new credential
@@ -104,24 +91,6 @@ def copy_username(cls,media):
     '''
     credentials_found = Credentials.find_by_media(media)
     pyperclip.copy(credentials_found.username)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 def read_credentials():
@@ -184,13 +153,6 @@ def read_credentials():
 
 if __name__ == '__read_credentials__':
     read_credentials()
-
-
-
-
-
-
-
 
 
 
@@ -270,17 +232,12 @@ def main():
                 if check_existing_user(password):
                     password = find_user(password)
 
-                    # with open("text.txt","r+") as handle:
-                    #     data = handle.read()
-                    #     print(data)
                     if read_credentials():
                         handle = open("text.txt", "a")
                         handle.write(media)
                         handle.write(username)
                         handle.write(password)
                         handle.close()
-                    # else:
-                    #     print("wrong password")
 
         elif short_code == "ex":
             print("Bye .......")
