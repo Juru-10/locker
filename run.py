@@ -184,8 +184,8 @@ def main():
 
             handle = open("user.txt", "a")
             handle.write(tname+'\n')
-            handle.write(tusername)
-            handle.write(tpassword)
+            handle.write(tusername+'  ')
+            handle.write(tpassword+'\n'+'\n')
             handle.close()
 
             save_users(create_user(tname,tusername,tpassword))
@@ -200,9 +200,6 @@ def main():
                 print('\n')
 
                 for user in display_users():
-                    with open("user.txt","r") as handle:
-                        data = handle.read()
-                        print(data)
                     print(f"{user.tname} {user.tusername}")
 
                 print('\n')
@@ -222,8 +219,9 @@ def main():
                 print('-' * 20)
             else:
                 print("That user does not exist")
+
         elif short_code == 'li':
-            print("Enter your twitter username")
+            print("Enter your twitter name")
             username = input()
             if check_existing_user(username):
                 username = find_user(username)
