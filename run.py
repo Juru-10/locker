@@ -1,4 +1,7 @@
 #!/usr/bin/env python3.6
+import random
+import string
+
 from locker import User
 from locker import Credentials
 
@@ -92,13 +95,21 @@ def copy_username(cls,media):
     credentials_found = Credentials.find_by_media(media)
     pyperclip.copy(credentials_found.username)
 
+def randomStringDigits(stringLength=6):
+    """
+    Generate a random string of letters and digits
+    """
+    lettersAndDigits = string.ascii_letters + string.digits
+    return ''.join(random.choice(lettersAndDigits) for i in range(stringLength))
+
+
 
 def read_credentials():
     '''
     Functions that reads credentials to the user
     '''
     while True:
-        print("Use these short codes : cc - create new credentials, dc - display credentials, fc -find credentials, ex -exit the credentials list, rc -Delete credentials")
+        print("Use these short codes; Enter : cc - create new credentials, dc - display your all credentials, fc -find credentials, ex -exit the credentials list, rc -Delete credentials")
         short_code = input().lower()
 
         if short_code == 'cc':
@@ -111,13 +122,26 @@ def read_credentials():
             print("username ...")
             username = input()
 
-            print("Password ...")
-            password = input()
-            handle = open("cred.txt", "a")
-            handle.write(media)
-            handle.write(username)
-            handle.write(password)
-            handle.close()
+            print (f"Is this {media} account not created yet? Generating a password for you?(y/n)")
+            answer = input()
+            if answer == 'y':
+                password = randomStringDigits(8)
+                print ("Your password is  ", password)
+                handle = open("cred.txt", "a")
+                handle.write(media)
+                handle.write(username)
+                handle.write(password)
+                handle.close()
+            elif answer == 'n':
+                print("enter the desired password.")
+                print("Password ...")
+                password = input()
+
+                handle = open("cred.txt", "a")
+                handle.write(media)
+                handle.write(username)
+                handle.write(password)
+                handle.close()
 
             save_credentials(create_credentials(media,username,password))
             print ('\n')
@@ -131,7 +155,7 @@ def read_credentials():
                 print('\n')
 
                 for credentials in display_credentials():
-                    print(f"{credentials.media} '\n' {credentials.username} {credentials.password}")
+                    print(f"{credentials.media} \n Username:{credentials.username} \n Password:{credentials.password}")
 
                     print('\n')
             else:
@@ -195,8 +219,8 @@ def main():
 
             handle = open("user.txt", "a")
             handle.write(tname+'\n')
-            handle.write(tusername+'  ')
-            handle.write(tpassword+'\n'+'\n')
+            handle.write(tusername+' ')
+            handle.write(tpassword+'\n')
             handle.close()
 
             save_users(create_user(tname,tusername,tpassword))
@@ -211,7 +235,14 @@ def main():
                 print('\n')
 
                 for user in display_users():
-                    print(f"{user.tname} {user.tusername}")
+                    with open("user.txt","r") as handle:
+                        count = 0
+                        for line in handle:
+                            count+=1
+                            if count%2==1:
+                                print(line)
+                        # data = handle.readline()
+                        # print(data+'\n')
 
                 print('\n')
             else:
@@ -229,7 +260,7 @@ def main():
                 print(f"{search_user.tname} {search_user.tusername}")
                 print('-' * 20)
             else:
-                print("That user does not exist")
+                print("That user does not exist\n")
 
         elif short_code == 'li':
             print("Enter your twitter name")
